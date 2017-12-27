@@ -78,25 +78,25 @@ script    (initial test scrap file)
 
 More Examples:
 
-~~~~~ rename_file.scrap ~~~~~~
+----- rename_file.scrap ------
 	rename "old_file.file" to "new_file.file"
 
-~~~~~ remove_word.scrap ~~~~~~
+----- remove_word.scrap ------
 	load "file.txt" into text_file
 	replace "word" with "" in text_file
 	# or
 	remove "word" in text_file
 
-~~~~~ print_variable.scrap ~~~~~~
+------ print_variable.scrap ------
 	load "file.txt" into text_file
 	show text_file
 
-~~~~~ rename_list_of_files.scrap ~~~~~
+------ rename_list_of_files.scrap -------
 	set files to ["file_1.file", "file_2.file", "file_3.file"]
 	foreach file in files enumerate i
 		rename file to "new_file\[i]"
 	
-~~~~~ if_statement.scrap
+------ if_statement.scrap  --------
 	load "file.txt" into text_file
 	if text_file contains "blue"
 		remove "red" in text_file
@@ -136,6 +136,21 @@ File Properties
 		- METHODS
 		   compile   [compiles the source]
 
+
+
+
+TODO:
+-----
+- implement basic commands
+- pass line number through
+- exit compilation on error
+- clean-up block semi-colons
+- find place for variable manager
+- document more methods and classes
+- add string quote escape support
+- ~~color error and warning messages~~
+- enforce case sensitivity
+- add regex and list variable type
 
 
 
