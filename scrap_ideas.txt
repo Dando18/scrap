@@ -1,0 +1,153 @@
+
+               -----------------------
+               |        SCRAP        |
+               -----------------------
+
+Text commands to file manipulation and other tasks. 
+
+
+Example:
+	load "<filename.ext>" into text
+	replace "string_1" with "string_2" in text
+	
+	load text
+	replace first "string_1" with "string_2"
+	
+	foreach <var_name> in table[1]:
+		remove r"<regular_expression"
+		append "From, me"
+		email from "from@email.com" to var_name
+
+	write text to "<file_name.ext>"
+
+	
+
+--------------------------------------------------------------------------------------------------
+|                    COMMAND                     |                     ACTION                    |
+--------------------------------------------------------------------------------------------------
+| write _ to _                                   | writes data to file                           |
+--------------------------------------------------------------------------------------------------
+| load _ into <var_name>                         | sets var_name to data from file               |
+--------------------------------------------------------------------------------------------------
+| load _                                         | sets primary var to file data                 |
+--------------------------------------------------------------------------------------------------
+| replace _ with _                               | replace every instance of first string with   |
+|                                                | second                                        |
+--------------------------------------------------------------------------------------------------
+| replace _ _ with _                             | above with location modifier first, last, nth |
+--------------------------------------------------------------------------------------------------
+| append _ to _                                  | appends first to second                       |
+--------------------------------------------------------------------------------------------------
+| append _                                       | appends to primary                            |
+--------------------------------------------------------------------------------------------------
+| remove _ _                                     | remove second with option: every, first, etc  |
+--------------------------------------------------------------------------------------------------
+
+
+
+
+Program Layout
+--------------
+
+Order
+-----
+- head
+- preproccessor
+- compile
+
+Py Files
+--------
+- scrap_head   (head file, responsible for designating .scrap file and other -options)
+- scrap_preprocessor    (runs any preprocessing necessary for the file)
+- scrap_compile   (splits script and returns list of expression)
+
+- scrap_expression   (expression base class; contains execute method for that expression) 
+- scrap_expressions   (contains a list of expressions)
+
+- scrap_variable   (variable base class; name, data, type)
+- scrap_variable_manager  (maintains a list of Variable objects)
+
+- scrap_utilities   (utility methods that are used many times across several files)
+
+Scrap Files
+-----------
+script    (initial test scrap file)
+
+
+
+
+More Examples:
+
+~~~~~ rename_file.scrap ~~~~~~
+	rename "old_file.file" to "new_file.file"
+
+~~~~~ remove_word.scrap ~~~~~~
+	load "file.txt" into text_file
+	replace "word" with "" in text_file
+	# or
+	remove "word" in text_file
+
+~~~~~ print_variable.scrap ~~~~~~
+	load "file.txt" into text_file
+	show text_file
+
+~~~~~ rename_list_of_files.scrap ~~~~~
+	set files to ["file_1.file", "file_2.file", "file_3.file"]
+	foreach file in files enumerate i
+		rename file to "new_file\[i]"
+	
+~~~~~ if_statement.scrap
+	load "file.txt" into text_file
+	if text_file contains "blue"
+		remove "red" in text_file
+	write text_file to "file.txt"
+
+
+
+
+
+
+	
+
+
+File Properties
+---------------
+
+- scrap_expressions.py
+	- VARS
+	   expression_list   [list of expressions]
+	- METHODS
+	   get_expression(key)    [returns the expression with the given key]
+- scrap_expression.py
+	- Expression (CLASS)
+		- VARS
+		   key     [name of expression; string]
+		   func    [function called when expression occurs]
+		- METHODS
+		   exec(args)    [calls func and passes args]
+- scrap_utilities.py
+	- METHODS
+	   is_string(string)    [determines if the string is wrapped in quotations]
+- scrap_compile.py
+	- Compile (CLASS)
+		- VARS
+		   source   [entire source string]
+		   lines    [source string split by \n]
+		- METHODS
+		   compile   [compiles the source]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

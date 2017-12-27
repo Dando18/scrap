@@ -1,0 +1,18 @@
+
+
+load "file.txt" into text
+replace "string_1" with "string_2" in text
+
+load text
+replace first "string_1" with "string_2"
+
+load "clients.excel" into table
+foreach email in table[1]:
+	remove r" [~@A-Z] "
+	append "From, me"
+	email from "from@email.com" to var_name"
+
+write text to "file.txt"
+
+
+
