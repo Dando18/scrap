@@ -15,7 +15,8 @@ class Type(Enum):
 	STRING = 1
 	NUMERIC = 2
 	FILE = 3
-
+	REGEX = 4
+	LIST = 5
 
 class Variable:
 	
@@ -42,7 +43,8 @@ class Variable:
 		self.data = new_data
 		self.type_t = new_type_t
 
-
+	def __str__(self):
+		return '<var name="'+str(self.name)+'" data="'+str(self.data)+'" type_t="'+str(self.type_t)+'">'
 
 
 
