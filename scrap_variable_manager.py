@@ -32,7 +32,18 @@ class VariableManager:
 				var.set_all(variable.name, variable.data, variable.type_t)
 				break
 		else:
-			self.vars.append(variable)
+			self.vars.append(variable)	
+
+	
+	'''
+	sets the primary variable to the data and type_t provided
+	'''
+	def set_primary(self, data, type_t):
+		for var in self.vars:
+			if var.name is '__primary__':
+				var.data = data
+				var.type_t = type_t
+				return
 
 	
 	'''
@@ -54,7 +65,8 @@ class VariableManager:
 				return var
 		return None
 
-			
+	def get_primary(self):
+		return self.get_variable('__primary__')			
 
 
 
