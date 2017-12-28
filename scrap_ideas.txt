@@ -55,8 +55,8 @@ Order
 - preproccessor
 - compile
 
-Py Files
---------
+Py Files (.py)
+--------------
 - scrap_head   (head file, responsible for designating .scrap file and other -options)
 - scrap_preprocessor    (runs any preprocessing necessary for the file)
 - scrap_compile   (splits script and returns list of expression)
@@ -67,12 +67,13 @@ Py Files
 - scrap_variable   (variable base class; name, data, type)
 - scrap_variable_manager  (maintains a list of Variable objects)
 
-- scrap_utilities   (utility methods that are used many times across several files)
+- scrap_error.py	(standard error and warning functions)
+- scrap_utilities	(utility methods that are used many times across several files)
 
-Scrap Files
------------
+Scrap Files (.scrap)
+--------------------
 script    (initial test scrap file)
-
+test_script
 
 
 
@@ -128,13 +129,65 @@ File Properties
 - scrap_utilities.py
 	- METHODS
 	   is_string(string)    [determines if the string is wrapped in quotations]
+	   is_regex(string)	[True if string is of the form r"..."]
+	   kill(message)	[kills the progrom with error message]
+	   write_to_file(filename, content, append=False, line_number=-1)	[writes content to filename; prints error and kills if IOError]
+	   read_from_file(filename, line_number=-1)	[returns the contents of filename; prints error and kills if IOError]
+	   read_string_from_variable(var)	[returns string from STRING type, file contents from FILE, number as string from NUMERIC]
+	   write_string_to_variable(var, string)	[opposite of read_string_from_variable]
 - scrap_compile.py
 	- Compile (CLASS)
 		- VARS
 		   source   [entire source string]
 		   lines    [source string split by \n]
 		- METHODS
-		   compile   [compiles the source]
+		   compile(source)   [executes each line in source]
+		   execute(source)   [execute takes a single expression line and executes it
+- scrap_error.py
+	- bcolors (CLASS)
+		- VARS
+		   HEADER, OKBLUE, OKGREEN, WARNING, FAIL, ENDC, BOLD, UNDERLINE     [terminal print codes]
+	- METHODS
+	   print_error(name, message, line_number)     [prints default format error message in red]
+	   print_warning(name, message, line_number)   [prints default format warning message in yellow]
+	   print_heading(title)                        [prints heading format in blue, bold, and underlined]
+	   print_OK(text, checked)                     [prints text in green with checkmark at beginning if checked is True]
+- scrap_variable.py
+	- Type (ENUM)		[Enum containing possible variable types]
+	   STRING (1)
+	   NUMERIC (2)
+	   FILE (3)
+	   REGEX (4)
+	   LIST (5) 
+	- Variable (CLASS)
+		- VARS
+		   name		[variable name; expected string]
+		   data		[data of variable; expected to align with type_t]
+		   type_t	[type; expected Type (Enum)]
+		- METHODS
+		   set_name(name)	[sets name]
+		   set_data(data)	[sets data]
+		   set_type_t(type_t)	[sets type]
+		   set_all(name, data, typte_t)	[resets all properties]
+- scrap_variable_manager.py
+	- VariableManager (CLASS)
+		- VARS
+		   vars		[list of variables
+		- METHODS
+		   contains_name(name)		[returns true if there is a variable with the given name]
+		   set(variable)		[adds the variable to the list of variables; if variable already exists, then overwrite it]
+		   remove(name)			[removes the variable with the given name]
+		   get_variable(name)		[returns the variable with the given name]
+- scrap_preprocessor.py
+	- Preprocessor (CLASS)
+		- VARS
+		   source		[source code from script to process]
+		- METHODS
+		   process(optimized)		[if optimized is True then it changes the code to optimize certain things]
+		   _swap_block(source)		[changes blocks (colon followed by tabs) to block (colon followed by {; ... ; ... ;})]
+		   _remove_empty_lines(out)	[removes empty lines from input source] 
+
+
 
 
 
@@ -142,18 +195,21 @@ File Properties
 TODO:
 -----
 - implement basic commands
-- pass line number through
-- exit compilation on error
+x ~~ pass line number through ~~
+x ~~ exit compilation on error ~~
 - clean-up block semi-colons
-- find place for variable manager
-- document more methods and classes
-- add string quote escape support
-- ~~color error and warning messages~~
+x ~~ find place for variable manager ~~
+- document all methods and classes
+- add string quote escape support 
+x ~~ color error and warning messages ~~
 - enforce case sensitivity
-- add regex and list variable type
-
-
-
+x ~~ add regex and list variable type ~~
+- create Block class to store blocks
+x ~~ create read and write file methods ~~
+- handle file types w/ Enum
+- basic syntax check in preprocessor (valid keys, variables, char-set, etc.)
+- evaluate conditionals method
+- write more test cases and example code
 
 
 
