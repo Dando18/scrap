@@ -14,8 +14,8 @@ class Expression:
 	'''
 	args is expected to be a list of strings
 	'''
-	def execute(self, args):
-		self.func(args)
+	def execute(self, args, compiler):
+		self.func(args, compiler)
 
 
 
