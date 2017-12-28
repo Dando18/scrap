@@ -1,6 +1,7 @@
 '''
 Error and Warning print protocol
 '''
+import scrap_utilities as util
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -12,9 +13,10 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
-def print_error(name, message, line_number):
+def print_error(name, message, line_number, kill=False):
 	print(bcolors.FAIL + 'ERROR (' + str(name) + '): ' + str(message) + ' --- at line #' + str(line_number) + bcolors.ENDC)
-
+	if kill:
+		util.kill('Fatal Error')
 
 def print_warning(name, message, line_number):
 	print(bcolors.WARNING + 'WARNING (' + str(name) + '): ' + str(message) + ' --- at line #' + str(line_number) + bcolors.ENDC)	
