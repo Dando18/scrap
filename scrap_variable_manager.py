@@ -26,7 +26,7 @@ class VariableManager:
 	adds a new variable to the variable list. If the variable already exists, then it overwrites
 	the data and type_t, else it adds a completely new variable.
 	'''
-	def add(self, variable):
+	def set(self, variable):
 		for i, var in enumerate(self.vars):
 			if var.name is variable.name:
 				var.set_all(variable.name, variable.data, variable.type_t)
