@@ -2,7 +2,7 @@
 variable manager class;
 contains get, set methods taking variable name
 '''
-from Variable import *
+from scrap_variable import *
 
 class VariableManager:
 	
