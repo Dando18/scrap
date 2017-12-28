@@ -32,8 +32,8 @@ class Variable:
 	def set_name(self, new):
 		self.name = new
 
-	def set_value(self, new):
-		self.value = new
+	def set_data(self, new):
+		self.data = new
 
 	def set_type_t(self, new):
 		self.type_t = new
