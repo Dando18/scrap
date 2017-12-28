@@ -22,5 +22,10 @@ def print_warning(name, message, line_number):
 	print(bcolors.WARNING + 'WARNING (' + str(name) + '): ' + str(message) + ' --- at line #' + str(line_number) + bcolors.ENDC)	
 
 
+def print_heading(title):
+	print(bcolors.OKBLUE + bcolors.UNDERLINE + bcolors.BOLD + str(title) + bcolors.ENDC)
 
+
+def print_OK(text, checked=False):
+	print(bcolors.OKGREEN + ('✓' if checked else '') + ' ' + text + bcolors.ENDC) 
 
