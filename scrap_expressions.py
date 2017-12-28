@@ -55,7 +55,7 @@ def load_func(args, compiler):
 		compiler.var_stack.set_primary( content, Type.STRING)	
 	return			
 
-expression_list.append( Expression("load", load_func) )
+expression_list.append( Expression("load", 'load _1_ ?(into _2_)', load_func) )
 
 
 
@@ -112,7 +112,7 @@ def replace_func(args, compiler):
 	util.write_string_to_variable(var, string) 
 	return
 
-expression_list.append( Expression("replace", replace_func) )
+expression_list.append( Expression("replace", 'replace _1_ ?(with _2) ?(in _3_)', replace_func) )
 
 
 ''' WRITE
@@ -132,7 +132,7 @@ def write_func(args, compiler):
 	print('write_func with args=' + str(args))
 	return
 
-expression_list.append( Expression("write", write_func) )
+expression_list.append( Expression("write", 'write ?(_1_) to _2_', write_func) )
 
 
 

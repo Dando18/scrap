@@ -197,7 +197,7 @@ TODO:
 - implement basic commands
 x ~~ pass line number through ~~
 x ~~ exit compilation on error ~~
-- clean-up block semi-colons
+x ~~ clean-up block semi-colons ~~
 x ~~ find place for variable manager ~~
 - document all methods and classes
 - add string quote escape support 
@@ -210,6 +210,8 @@ x ~~ create read and write file methods ~~
 - basic syntax check in preprocessor (valid keys, variables, char-set, etc.)
 - evaluate conditionals method
 - write more test cases and example code
+- add help for each command
+x ~~ take script name as argument ~~
 
 
 
