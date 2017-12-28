@@ -1,0 +1,5 @@
+
+load "test.txt"
+replace "dog" with "cat"
+write to "test.txt"
+
