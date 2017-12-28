@@ -6,8 +6,8 @@ looking up its expression
 from scrap_expressions import get_expression
 import scrap_utilities as util
 from scrap_error import *
+from scrap_variable_manager import VariableManager
 import re
-
 
 
 class Compile():
@@ -18,13 +18,16 @@ class Compile():
 	def __init__(self, source):
 		self.source = source
 		self.lines = source.split('\n')
+		self.var_stack = VariableManager()
+		self.cur_line = 0
 
 	
 	'''
 	iterates thru each line and executes it
 	'''
 	def compile(self):
-		for line in self.lines:
+		for i, line in enumerate(self.lines):
+			self.cur_line = i
 			self.execute(line)
 	
 
@@ -41,8 +44,9 @@ class Compile():
 		expression = get_expression(key)
 		if expression is None:
 			print_error('Expression Not Found', 'The used expression \'' + key + '\' does not exist. Try checking the spelling.', 0)
+			util.kill('Execution Failed')		
 			return
-		expression.execute(source)		
+		expression.execute(args, self)		
 		return	
 
 
