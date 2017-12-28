@@ -26,7 +26,9 @@ class Preprocessor:
 	'''
 	def _swap_block(self, source):
 		for match in re.finditer(r':\n((\t[^\n]*\n)*)', source):
-			block = ' : {' +  match.group(0).replace(':', '').replace('\n', ' ; ').replace('\t', '') + ' } '
+			block = ' : {' +  match.group(0).replace(':', '').replace('\n', ';').replace('\t', '') + '}'
+			# remove first and last ';', because before it is shaped '{;command;...;command;}'
+			block = block[:4] + block[5:-2] + block[-1]
 			source = source[:match.start()] + block + source[match.end():]
 		return source
 
