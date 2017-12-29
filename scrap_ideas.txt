@@ -210,8 +210,10 @@ x ~~ create read and write file methods ~~
 - basic syntax check in preprocessor (valid keys, variables, char-set, etc.)
 - evaluate conditionals method
 - write more test cases and example code
-- add help for each command
+x ~~ add help for each expression ~~
 x ~~ take script name as argument ~~
+- move each expression definition into its own file and put those files in its own folder
+x ~~ move all files into src folder ~~
 
 
 

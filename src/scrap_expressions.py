@@ -33,7 +33,6 @@ def get_expression(key):
 
 '''
 def load_func(args, compiler):
-	print('load_func with args=' + str(args))
 	
 	# set file and load contents
 	if util.is_string(args[0]):
@@ -77,7 +76,6 @@ expression_list.append( Expression("load", 'load _1_ ?(into _2_)', load_func) )
 		replace " "
 '''
 def replace_func(args, compiler):
-	print('replace_func with args=' + str(args))
 	
 	# determine variable
 	if args[-2] is 'in':
@@ -93,8 +91,8 @@ def replace_func(args, compiler):
 		print_error('Invalid Argument', 'variable expected to be of type file, string, or numeric', compiler.cur_line, kill=True)	
 	
 	# new string
-	if args[1] is 'with':
-		new = args[2]
+	if args[1] == 'with':
+		new = util.read_string(args[2], compiler, error_on_none=True)
 	else:
 		new = ''
 
@@ -133,6 +131,36 @@ def write_func(args, compiler):
 	return
 
 expression_list.append( Expression("write", 'write ?(_1_) to _2_', write_func) )
+
+
+''' SHOW
+
+	prints to console types STRING, NUMERIC, etc
+	USES:
+		show ?(_1_)
+			1: string or variable	
+	EXAMPLES:
+		load "file.txt" into var
+		show var
+'''
+def show_func(args, compiler):
+	if len(args) == 0:
+		out = util.read_string_from_variable( compiler.var_stack.get_primary() )
+	elif util.is_string(args[0]):
+		out = util.strip_string(args[0])
+	elif compiler.var_stack.contains_name(args[0]):
+		out = util.read_string_from_variable( compiler.var_stack.get_variable(args[0]) )	
+	if out is not None:
+		print(out)
+	else:
+		print_error('Invalid Argument', 'illegal variable type', compiler.cur_line)
+	return
+
+expression_list.append( Expression("show", 'show ?(_1_)', show_func) )		
+
+
+
+
 
 
 

@@ -17,10 +17,11 @@ parser.add_argument('--verbose-compile', '--vc', action='store_true', default=Fa
 args = parser.parse_args()
 
 
-# get file name for script
+# get file name for script and change working directory
 script_name = args.script_file
 if script_name[-6:] != '.scrap':
 	script_name = 'script.scrap'
+util.change_working_directory(script_name)
 
 
 # read in script_file

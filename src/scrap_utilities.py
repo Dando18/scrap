@@ -5,6 +5,7 @@ from scrap_variable import *
 from scrap_error import *
 import re
 import sys
+import os
 
 
 def is_string(string):
@@ -13,6 +14,10 @@ def is_string(string):
 
 def is_regex(string):
 	return re.match(r'r"(.*?)"', string) is not None
+
+
+def strip_string(string):
+	return string[1:-1]
 
 
 def kill(message):
@@ -37,8 +42,15 @@ def read_from_file(filename, line_number=-1):
 	
 	with f:
 		return f.read()
-	
 
+
+'''
+takes a file and changes the programs current working directory to the directory of that file
+'''
+def change_working_directory(f):
+	os.chdir( os.path.dirname( os.path.realpath( f ) ) )
+		
+	
 
 '''
 Attempts to get a string from a variable. If type is STRING or NUMERIC, then data is returned
@@ -54,6 +66,19 @@ def read_string_from_variable(var):
 	else:
 		return None
 		
+
+'''
+if is_string() then returns stripped string, else if is variable then read_string_from_variable()
+'''
+def read_string(input_string, compiler, error_on_none=False):
+	if is_string(input_string):
+		out = strip_string(input_string)
+	elif compiler.var_stack.contains_name(input_string):
+		out = read_string_from_variable( compiler.var_stack.get_variable( input_string ) )
+	if error_on_none and out is None:
+		print_error('Invalid Argument', 'String or Variable does not give a valid string.', compiler.cur_line)
+	return out
+
 
 '''
 writes a string into a var. methods pends on its type.
