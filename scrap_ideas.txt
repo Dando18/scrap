@@ -214,7 +214,7 @@ x ~~ add help for each expression ~~
 x ~~ take script name as argument ~~
 - move each expression definition into its own file and put those files in its own folder
 x ~~ move all files into src folder ~~
-
+- test reading arguments with regex (i.e. matching 'load _1_ ?(into _2_)' rather than 'if arg[1] == 'into''...)
 
 
 
